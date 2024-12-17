@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+ActionBar {
+  background-color: #65adf1;
+  color: white;
+}
+
+.progress-custom {
+  height: 4;
+  background-color: #e5e7eb;
+  color: #3b82f6;
+  border-radius: 2;
+}
+
+scrollView {
+  scroll-bar-indication: none;
+}
+
+NavigationButton {
+  color: white;
+  visibility: visible;
+}
+
+ActionItem {
+  color: white;
+}
+
+/* Hide action items */
+ActionBar ActionItems {
+  visibility: collapsed;
+}
+
+/* Ensure back button is visible */
+ActionBar NavigationButton {
+  visibility: visible;
+}
