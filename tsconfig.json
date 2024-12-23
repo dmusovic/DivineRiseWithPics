@@ -1,25 +1,31 @@
 {
   "compilerOptions": {
-    "jsx": "react",
-    "types": ["react-nativescript", "node"],
+    "jsx": "react-native", // Correct for React Native projects
     "module": "esnext",
-    "target": "ES2020",
+    "target": "es2020",
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "noEmitHelpers": true,
-    "noEmitOnError": true,
-    "lib": ["ESNext", "dom"],
+    "strict": true,
+    "skipLibCheck": true,
+    "lib": ["esnext", "dom"],
     "baseUrl": ".",
     "paths": {
       "~/*": ["src/*"],
       "@/*": ["src/*"]
     },
-    "allowSyntheticDefaultImports": true  // Enable synthetic default imports
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "types": ["react", "node"]  // Ensure types for React and Node are included
   },
   "include": [
-    "./src/**/*",
-    "nativescript-jsx.d.ts"
+    "src/**/*",
+    "nativescript-jsx.d.ts",
+    "global.d.ts"
   ],
-  "exclude": ["node_modules", "platforms"]
+  "exclude": [
+    "node_modules",
+    "platforms",
+    "dist"
+  ]
 }

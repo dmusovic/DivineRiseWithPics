@@ -1,37 +1,46 @@
-import React from "react";
-import { ActionBar, NavigationButton } from "@nativescript/core"; // Import from NativeScript
-import { isAndroid } from "@nativescript/core"; // To check platform-specific features
+import React, { useEffect } from "react";
+import { ActionBar, NavigationButton, isAndroid } from "@nativescript/core";
 
 interface ActionBarComponentProps {
   title: string;
-  canGoBack: boolean;
+  canGoBack?: boolean;
   onBackPress?: () => void;
 }
 
 export const ActionBarComponent: React.FC<ActionBarComponentProps> = ({
   title,
-  canGoBack,
+  canGoBack = false,
   onBackPress,
 }) => {
-  // Use useEffect to initialize the ActionBar
-  React.useEffect(() => {
+  useEffect(() => {
+    const currentPage = globalThis.page; // Ensure `globalThis.page` is correctly defined
     const actionBar = new ActionBar();
     actionBar.title = title;
 
     if (canGoBack && onBackPress) {
       const backButton = new NavigationButton();
-      backButton.icon = isAndroid ? "res://ic_menu_back" : undefined;  // iOS icon logic here
-      backButton.text = !isAndroid ? "Back" : undefined;
+      backButton.icon = "res://ic_menu_back";
       backButton.on("tap", onBackPress);
+
+      if (isAndroid) {
+        backButton.android.systemIcon = "ic_menu_back";
+      } else {
+        backButton.text = "Back";
+      }
+
       actionBar.navigationButton = backButton;
     }
 
-    // This will run once to initialize the ActionBar
+    if (currentPage) {
+      currentPage.actionBar = actionBar;
+    }
+
     return () => {
-      // Clean up if necessary
+      if (currentPage && currentPage.actionBar === actionBar) {
+        currentPage.actionBar = null as unknown as ActionBar; // Type assertion to satisfy the type checker
+      }
     };
   }, [title, canGoBack, onBackPress]);
 
-  // Return null because we're dealing with native components directly
   return null;
 };

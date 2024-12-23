@@ -1,18 +1,38 @@
-import * as React from "react";
-import { Frame, StackLayout, Label } from "@nativescript/core";  // Ensure this is correct!
-import { ActionBarComponent } from "../components/ActionBarComponent";  // Check this path too
+import React from 'react';
+import { stackNavigatorFactory } from 'react-nativescript-navigation';
+import { CoursesScreen } from '../../components/screens/CoursesScreen';
+import { CourseDetailsScreen } from '../../components/screens/CourseDetailsScreen';
+import { LessonViewScreen } from '../../components/screens/LessonViewScreen';
 
-export const CourseStack = ({ navigation }: any) => {
-  return (
-    <Frame>
-      <ActionBarComponent
-        title="Course Stack"
-        canGoBack={navigation.canGoBack()}  // Make sure this is a valid check
-        onBackPress={() => navigation.goBack()}  // Go back action
-      />
-      <StackLayout>
-        <Label text="Welcome to the Course Stack!" />
-      </StackLayout>
-    </Frame>
-  );
-};
+const StackNavigator = stackNavigatorFactory();
+
+export const CourseStack = () => (
+  <StackNavigator.Navigator
+    initialRouteName="Courses"
+    screenOptions={{
+      headerShown: true,
+    }}
+  >
+    <StackNavigator.Screen
+      name="Courses"
+      component={CoursesScreen}
+      options={{
+        title: 'My Courses',
+      }}
+    />
+    <StackNavigator.Screen
+      name="CourseDetails"
+      component={CourseDetailsScreen}
+      options={{
+        title: 'Course Details',
+      }}
+    />
+    <StackNavigator.Screen
+      name="LessonView"
+      component={LessonViewScreen}
+      options={{
+        title: 'Lesson',
+      }}
+    />
+  </StackNavigator.Navigator>
+);
