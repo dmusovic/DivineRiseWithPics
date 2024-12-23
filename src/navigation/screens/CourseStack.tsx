@@ -1,36 +1,17 @@
 import * as React from "react";
-import { stackNavigatorFactory } from "react-nativescript-navigation";
-import { CoursesScreen } from "../../components/screens/CoursesScreen";
-import { CourseDetailsScreen } from "../../components/screens/CourseDetailsScreen";
-import { LessonViewScreen } from "../../components/screens/LessonViewScreen";
+import { ActionBarComponent } from "../components/ActionBarComponent";
 
-const StackNavigator = stackNavigatorFactory();
-
-export const CourseStack = () => (
-    <StackNavigator.Navigator initialRouteName="Courses">
-        <StackNavigator.Screen
-            name="Courses"
-            component={CoursesScreen}
-            options={{
-                title: "My Courses",
-                headerLeft: () => null
-            }}
-        />
-        <StackNavigator.Screen
-            name="CourseDetails"
-            component={CourseDetailsScreen}
-            options={{
-                title: "Course Details",
-                navigationBarHidden: false
-            }}
-        />
-        <StackNavigator.Screen
-            name="LessonView"
-            component={LessonViewScreen}
-            options={{
-                title: "Lesson",
-                navigationBarHidden: false
-            }}
-        />
-    </StackNavigator.Navigator>
-);
+export const CourseStack = ({ navigation }: any) => {
+  return (
+    <frame>
+      <ActionBarComponent
+        title="Course Stack"
+        canGoBack={navigation.canGoBack()}
+        onBackPress={() => navigation.goBack()}
+      />
+      <stackLayout>
+        <label text="Welcome to the Course Stack!" />
+      </stackLayout>
+    </frame>
+  );
+};

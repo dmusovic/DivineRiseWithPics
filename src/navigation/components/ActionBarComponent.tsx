@@ -1,25 +1,24 @@
 import * as React from "react";
-import { ActionBar, NavigationButton, isAndroid } from "@nativescript/core";
+import { isAndroid } from "@nativescript/core";
 
 interface ActionBarComponentProps {
   title: string;
   canGoBack: boolean;
+  onBackPress?: () => void;
 }
 
-export const ActionBarComponent = ({ title, canGoBack }: ActionBarComponentProps) => {
+export const ActionBarComponent: React.FC<ActionBarComponentProps> = ({
+  title,
+  canGoBack,
+  onBackPress,
+}) => {
   return (
-    <actionBar
-      title={title}
-      className="bg-blue-500"
-      flat={true}
-      android={{ systemIcon: canGoBack ? "ic_menu_back" : undefined }}
-      ios={{ systemIcon: canGoBack ? 0 : undefined }}
-    >
+    <actionBar title={title}>
       {canGoBack && (
         <navigationButton
-          text={isAndroid ? "" : "Back"}
-          android={{ systemIcon: "ic_menu_back" }}
-          ios={{ systemIcon: 0 }}
+          icon={isAndroid ? "res://ic_menu_back" : undefined} // Use NativeScript's resource path for Android
+          text={!isAndroid ? "Back" : undefined} // iOS-only text
+          onTap={onBackPress}
         />
       )}
     </actionBar>
