@@ -22,7 +22,7 @@ export const NavigationContainer = () => (
             <ActionBarComponent
               title="Main Stack"
               canGoBack={navigation.canGoBack()}
-              onBackPress={() => navigation.goBack()}
+              onBackPress={() => navigation.goBack()} // Go back on button press
             />
           ),
         })}
